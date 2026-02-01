@@ -1,0 +1,57 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f4f6f8;
+}
+
+.navbar {
+  background: #2e7d32;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar a {
+  color: white;
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar a.active {
+  text-decoration: underline;
+}
+
+.page {
+  max-width: 520px;
+  background: white;
+  margin: 30px auto;
+  padding: 25px;
+  border-radius: 8px;
+}
+
+input, button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+button {
+  background: #2e7d32;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin-top: 10px;
+}
+
+.image {
+  width: 100%;
+  margin-top: 15px;
+  border-radius: 6px;
+}
