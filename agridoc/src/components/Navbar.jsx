@@ -1,15 +1,11 @@
-import { NavLink } from "react-router-dom";
+import logo from "../assets/logo.png";
 
 export default function Navbar() {
   return (
     <nav className="navbar">
-      <h2>🌾 AgriDoc</h2>
-      <div>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/sell">Sell</NavLink>
-        <NavLink to="/buy">Buy</NavLink>
-        <NavLink to="/detect">Detect</NavLink>
-        <NavLink to="/voice">Voice</NavLink>
+      <div className="navbar-left">
+        <img src={logo} alt="AgriDoc Logo" className="navbar-logo" />
+        <span className="navbar-title">AgriDoc</span>
       </div>
     </nav>
   );

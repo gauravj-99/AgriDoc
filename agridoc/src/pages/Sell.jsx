@@ -1,71 +1,22 @@
-import { useState, useContext, useEffect } from "react";
-import { CropContext } from "../context/CropContext";
+import BackHome from "../components/BackHome";
 
 export default function Sell() {
-  const { cropData } = useContext(CropContext);
-
-  const [crop, setCrop] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState("");
-  const [location, setLocation] = useState("");
-
-  useEffect(() => {
-    if (cropData) {
-      setCrop(cropData.crop || "");
-      setQuantity(cropData.quantity || "");
-      setPrice(cropData.price || "");
-    }
-  }, [cropData]);
-
-  function handleSubmit(e) {
-    e.preventDefault();
-    alert("Crop submitted successfully 🌾");
-  }
-
   return (
-    <div className="page">
+    <div style={{ padding: "16px" }}>
+      <BackHome />
+
       <h2>Sell Crops</h2>
 
-      <form onSubmit={handleSubmit}>
-        <label>Crop Name</label>
-        <input
-          value={crop}
-          onChange={(e) =>
-            setCrop(e.target.value.replace(/[^a-zA-Z ]/g, ""))
-          }
-          placeholder="Only text"
-          required
-        />
+      <input type="text" placeholder="Crop Name" />
+      <br /><br />
 
-        <label>Quantity (kg)</label>
-        <input
-          type="number"
-          value={quantity}
-          onChange={(e) => setQuantity(e.target.value)}
-          placeholder="Only numbers"
-          required
-        />
+      <input type="number" placeholder="Quantity (kg)" />
+      <br /><br />
 
-        <label>Price (₹)</label>
-        <input
-          type="number"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          required
-        />
+      <input type="number" placeholder="Price per kg" />
+      <br /><br />
 
-        <label>Location</label>
-        <input
-          value={location}
-          onChange={(e) =>
-            setLocation(e.target.value.replace(/[^a-zA-Z ]/g, ""))
-          }
-          placeholder="Village / District"
-          required
-        />
-
-        <button type="submit">Submit</button>
-      </form>
+      <button>Submit</button>
     </div>
   );
 }

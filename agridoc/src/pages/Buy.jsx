@@ -1,22 +1,20 @@
-const crops = [
-  { id: 1, name: "Wheat", qty: 50, price: 2000, loc: "Meerut" },
-  { id: 2, name: "Rice", qty: 80, price: 3200, loc: "Lucknow" },
-];
+import BackHome from "../components/BackHome";
 
 export default function Buy() {
   return (
-    <div className="page">
+    <div style={{ padding: "16px" }}>
+      <BackHome />
+
       <h2>Buy Crops</h2>
 
-      {crops.map((c) => (
-        <div className="card" key={c.id}>
-          <h3>{c.name}</h3>
-          <p>Quantity: {c.qty} kg</p>
-          <p>Price: ₹{c.price}</p>
-          <p>Location: {c.loc}</p>
-          <button>Contact Seller</button>
-        </div>
-      ))}
+      <ul>
+        <li>🌾 Wheat – ₹25/kg</li>
+        <li>🌽 Maize – ₹20/kg</li>
+        <li>🍚 Rice – ₹30/kg</li>
+        <li>🥔 Potato – ₹18/kg</li>
+      </ul>
+
+      <p>Select crops and contact seller (feature coming soon).</p>
     </div>
   );
 }

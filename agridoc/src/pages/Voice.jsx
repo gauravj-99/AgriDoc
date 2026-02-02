@@ -1,39 +1,42 @@
-import { useContext } from "react";
-import { CropContext } from "../context/CropContext";
-import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import BackHome from "../components/BackHome";
 
 export default function Voice() {
-  const { setCropData } = useContext(CropContext);
-  const navigate = useNavigate();
+  const [listening, setListening] = useState(false);
+  const [done, setDone] = useState(false);
 
-  function startVoice() {
-    const SpeechRecognition =
-      window.SpeechRecognition || window.webkitSpeechRecognition;
+  const startVoice = () => {
+    setListening(true);
+    setDone(false);
 
-    const recog = new SpeechRecognition();
-    recog.lang = "en-IN";
-
-    recog.onresult = (e) => {
-      const text = e.results[0][0].transcript;
-      const quantity = text.match(/\d+/)?.[0] || "";
-      const price = text.match(/\d{3,5}/)?.[0] || "";
-
-      setCropData({
-        crop: "Wheat",
-        quantity,
-        price,
-      });
-
-      navigate("/sell");
-    };
-
-    recog.start();
-  }
+    // simulate voice processing
+    setTimeout(() => {
+      setListening(false);
+      setDone(true);
+    }, 3000);
+  };
 
   return (
-    <div className="page">
+    <div style={{ padding: "16px" }}>
+      <BackHome />
+
       <h2>Voice Assistant</h2>
-      <button onClick={startVoice}>🎤 Speak Now</button>
+
+      <button onClick={startVoice}>
+        🎤 Start Speaking
+      </button>
+
+      {listening && (
+        <p style={{ marginTop: "10px" }}>
+          Listening...
+        </p>
+      )}
+
+      {done && (
+        <p style={{ marginTop: "10px", color: "green" }}>
+          Voice input processed successfully.
+        </p>
+      )}
     </div>
   );
 }

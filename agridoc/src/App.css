@@ -1,3 +1,11 @@
+body {
+  background: linear-gradient(
+    180deg,
+    #e8f5e9 0%,
+    #ffffff 70%
+  );
+}
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
