@@ -48,5 +48,3 @@ This project is designed as a **college project / portfolio project** focusing o
 
 ---
 
-## 📁 Project Structure
-
