@@ -1,31 +1,71 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BackHome from "../components/BackHome";
 
-const cropOptions = [
-  { name: "Wheat", price: 25 },
-  { name: "Maize", price: 20 },
-  { name: "Rice", price: 30 },
-  { name: "Potato", price: 18 },
-];
+const API_URL = "http://localhost:5000/api";
 
 export default function Buy() {
-  const [selectedCrop, setSelectedCrop] = useState(cropOptions[0].name);
+  const [cropOptions, setCropOptions] = useState([]);
+  const [selectedCrop, setSelectedCrop] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [confirmation, setConfirmation] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  const crop = cropOptions.find((item) => item.name === selectedCrop);
+  useEffect(() => {
+    fetch(`${API_URL}/crops`)
+      .then((res) => res.json())
+      .then((data) => {
+        setCropOptions(data);
+        setSelectedCrop(data[0]?.name ?? "");
+      })
+      .catch(() => {
+        setCropOptions([
+          { name: "Wheat", price: 25 },
+          { name: "Maize", price: 20 },
+          { name: "Rice", price: 30 },
+          { name: "Potato", price: 18 }
+        ]);
+        setSelectedCrop("Wheat");
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  const crop = cropOptions.find((item) => item.name === selectedCrop) || { price: 0 };
   const total = crop.price * quantity;
 
-  const handleBuy = () => {
+  const handleBuy = async () => {
     if (quantity < 1) {
       alert("Please enter a quantity of at least 1 kg.");
       return;
     }
 
-    setConfirmation(
-      `You selected ${quantity} kg of ${selectedCrop} at ₹${crop.price}/kg. Total ₹${total}. Seller contact details will be available soon.`
-    );
+    try {
+      const response = await fetch(`${API_URL}/orders`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ crop: selectedCrop, quantity, total })
+      });
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || "Could not place order.");
+      }
+
+      setConfirmation(
+        `Order placed: ${quantity} kg of ${selectedCrop} at ₹${crop.price}/kg. Total ₹${total}. Seller contact: ${data.order.sellerContact}`
+      );
+    } catch (error) {
+      alert(error.message);
+    }
   };
+
+  if (loading) {
+    return (
+      <div style={{ padding: "16px", maxWidth: "500px", margin: "0 auto" }}>
+        <BackHome />
+        <h2>Loading crop list...</h2>
+      </div>
+    );
+  }
 
   return (
     <div style={{ padding: "16px", maxWidth: "500px", margin: "0 auto" }}>
