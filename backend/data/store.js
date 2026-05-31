@@ -7,3 +7,4 @@ export const crops = [
 
 export const orders = [];
 export const listings = [];
+export const projects = [];

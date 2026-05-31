@@ -16,6 +16,7 @@ export const createListing = (req, res) => {
     cropName,
     quantity,
     price,
+    sellerContact: "seller@example.com",
     createdAt: new Date().toISOString()
   };
 

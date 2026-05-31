@@ -5,6 +5,7 @@ import { getCrops } from "../controllers/cropController.js";
 import { getListings, createListing } from "../controllers/listingController.js";
 import { createOrder } from "../controllers/orderController.js";
 import { detectDisease } from "../controllers/detectController.js";
+import { registerProject, getProjects, getProjectById, updateProject, deleteProject } from "../controllers/projectController.js";
 
 const router = express.Router();
 const upload = multer();
@@ -15,5 +16,12 @@ router.get("/listings", getListings);
 router.post("/orders", createOrder);
 router.post("/listings", createListing);
 router.post("/detect", upload.single("image"), detectDisease);
+
+// Project Registration Routes
+router.post("/projects/register", registerProject);
+router.get("/projects", getProjects);
+router.get("/projects/:id", getProjectById);
+router.put("/projects/:id", updateProject);
+router.delete("/projects/:id", deleteProject);
 
 export default router;

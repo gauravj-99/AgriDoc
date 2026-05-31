@@ -6,6 +6,8 @@ import Sell from "./pages/Sell";
 import Buy from "./pages/Buy";
 import Detect from "./pages/Detect";
 import Voice from "./pages/Voice";
+import Register from "./pages/Register";
+import Projects from "./pages/Projects";
 
 export default function App() {
   return (
@@ -17,6 +19,8 @@ export default function App() {
         <Route path="/buy" element={<Buy />} />
         <Route path="/detect" element={<Detect />} />
         <Route path="/voice" element={<Voice />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/projects" element={<Projects />} />
       </Routes>
     </>
   );
