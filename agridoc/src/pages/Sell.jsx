@@ -7,6 +7,7 @@ export default function Sell() {
   const [cropName, setCropName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0);
+  const [sellerContact, setSellerContact] = useState("");
   const [message, setMessage] = useState("");
   const [listings, setListings] = useState([]);
 
@@ -18,7 +19,7 @@ export default function Sell() {
   }, []);
 
   const handleSubmit = async () => {
-    if (!cropName || quantity < 1 || price <= 0) {
+    if (!cropName || quantity < 1 || price <= 0 || !sellerContact) {
       alert("Please complete all fields with valid values.");
       return;
     }
@@ -27,7 +28,7 @@ export default function Sell() {
       const response = await fetch(`${API_URL}/listings`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cropName, quantity, price })
+        body: JSON.stringify({ cropName, quantity, price, sellerContact })
       });
 
       const data = await response.json();
@@ -90,6 +91,19 @@ export default function Sell() {
         </label>
       </div>
 
+      <div style={{ marginBottom: "16px" }}>
+        <label>
+          Seller Contact:
+          <input
+            type="text"
+            value={sellerContact}
+            onChange={(e) => setSellerContact(e.target.value)}
+            placeholder="Email or phone"
+            style={{ marginLeft: "8px", padding: "8px", borderRadius: "6px", width: "100%" }}
+          />
+        </label>
+      </div>
+
       <button
         onClick={handleSubmit}
         style={{ padding: "10px 18px", background: "#2e7d32", color: "#fff", border: "none", borderRadius: "8px", cursor: "pointer" }}
@@ -106,13 +120,16 @@ export default function Sell() {
       {listings.length > 0 && (
         <div style={{ marginTop: "24px" }}>
           <h3>Current Listings</h3>
-          <ul>
+          <div style={{ display: "grid", gap: "12px" }}>
             {listings.map((listing) => (
-              <li key={listing.id} style={{ marginBottom: "8px" }}>
-                {listing.cropName}: {listing.quantity} kg at ₹{listing.price}/kg
-              </li>
+              <div key={listing.id} style={{ padding: "12px", border: "1px solid #ccc", borderRadius: "10px", background: "#fafafa" }}>
+                <strong>{listing.cropName}</strong>
+                <div>Available: {listing.quantity} kg</div>
+                <div>Price: ₹{listing.price}/kg</div>
+                <div>Seller: {listing.sellerContact}</div>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       )}
     </div>

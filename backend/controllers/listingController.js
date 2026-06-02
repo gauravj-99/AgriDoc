@@ -5,9 +5,9 @@ export const getListings = (req, res) => {
 };
 
 export const createListing = (req, res) => {
-  const { cropName, quantity, price } = req.body;
+  const { cropName, quantity, price, sellerContact } = req.body;
 
-  if (!cropName || !quantity || !price) {
+  if (!cropName || !quantity || !price || !sellerContact) {
     return res.status(400).json({ error: "Missing listing details" });
   }
 
@@ -16,7 +16,7 @@ export const createListing = (req, res) => {
     cropName,
     quantity,
     price,
-    sellerContact: "seller@example.com",
+    sellerContact,
     createdAt: new Date().toISOString()
   };
 

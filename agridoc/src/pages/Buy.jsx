@@ -54,7 +54,7 @@ export default function Buy() {
       }
 
       setConfirmation(
-        `Order placed: ${quantity} kg of ${selectedListing.cropName} at ₹${selectedListing.price}/kg. Total ₹${data.order.total}. Seller contact: ${data.order.sellerContact}`
+        `Order #${data.order.id} placed: ${quantity} kg of ${selectedListing.cropName} at ₹${selectedListing.price}/kg. Total ₹${data.order.total}. Seller contact: ${data.order.sellerContact}`
       );
       setListings((current) => {
         return current
@@ -100,6 +100,36 @@ export default function Buy() {
       <BackHome />
 
       <h2>Buy Crops</h2>
+
+      {listings.length > 0 && (
+        <div style={{ marginBottom: "24px" }}>
+          <h3>Live Listings</h3>
+          <div style={{ display: "grid", gap: "12px" }}>
+            {listings.map((item) => (
+              <div
+                key={item.id}
+                style={{
+                  padding: "14px",
+                  borderRadius: "10px",
+                  border: selectedListing?.id === item.id ? "2px solid #2e7d32" : "1px solid #ddd",
+                  background: selectedListing?.id === item.id ? "#e8f5e9" : "#fff"
+                }}
+              >
+                <div style={{ fontWeight: "700", marginBottom: "4px" }}>{item.cropName}</div>
+                <div>Price: ₹{item.price}/kg</div>
+                <div>Available: {item.quantity} kg</div>
+                <div>Seller contact: {item.sellerContact}</div>
+                <button
+                  onClick={() => setSelectedListingId(item.id.toString())}
+                  style={{ marginTop: "10px", padding: "8px 12px", background: "#2e7d32", color: "#fff", border: "none", borderRadius: "6px", cursor: "pointer" }}
+                >
+                  Select this listing
+                </button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {listings.length === 0 ? (
         <p>No listings are available right now. Try again later.</p>

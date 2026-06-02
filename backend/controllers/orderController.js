@@ -1,5 +1,9 @@
 import { listings, orders } from "../data/store.js";
 
+export const getOrders = (req, res) => {
+  res.json(orders);
+};
+
 export const createOrder = (req, res) => {
   const { listingId, quantity } = req.body;
 
