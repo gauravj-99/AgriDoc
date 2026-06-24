@@ -1,2 +1,3 @@
 Agridoc is for famer
 Agridoc increse yield for farmer
+here we feature like speech to text and vise versa
