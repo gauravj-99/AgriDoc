@@ -1,2 +1,2 @@
 
-While working on my AI-powered Task Issue Manager, I faced a bug where tasks were being created successfully in the backend but were not appearing correctly on the React frontend. I spent time debugging the API response, network requests, and state updates. I eventually found that the frontend was expecting a different field name than the backend was returning. I fixed the data mapping and updated the state handling, 
+While working on my AI-powered Task Issue Manager, I faced a bug where tasks were being created successfully in the backend but were not appearing correctly on the React frontend. I spent time debugging the API response, network requests, 
